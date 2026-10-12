@@ -3,16 +3,16 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 # ---------------------------------------------------------------
-# Two-Tone Professional Palette (Rose & Near-black / Ink)
+# Two-Tone Professional Palette 
 # ---------------------------------------------------------------
 COLORS = {
-    "Subscriber": "#EF4676",
-    "Customer": "#2A2830",
-    "Male": "#EF4676",
-    "Female": "#2A2830",
-    "Young": "#EF4676",
-    "Adult": "#2A2830",
-    "Senior": "#F2A6BE",
+    "Subscriber": "#00FF88",
+    "Customer":   "#00B8D4",
+    "Male":       "#00FF88",
+    "Female":     "#7C3AED",  # Neon purple accent
+    "Young":      "#00FF88",
+    "Adult":      "#00B8D4",
+    "Senior":     "#F59E0B",  # Amber accent
 }
 
 BASE_LAYOUT = dict(
@@ -147,7 +147,7 @@ def fig_age_histogram(df):
         x="age",
         nbins=30,
         title="Age Distribution of Riders",
-        color_discrete_sequence=["#EF4676"],
+        color_discrete_sequence=["#00B8D4"],
     )
     fig.update_layout(xaxis_title="Age", yaxis_title="Trips", bargap=0.05,
                       **BASE_LAYOUT)
@@ -205,7 +205,28 @@ def fig_duration_by_user_type(df):
 
 
 # ===============================================================
-# Test area — does NOT run when Neamat imports this file
+# 8. Trip duration comparison: male vs female (box plot)
+# ===============================================================
+def fig_duration_by_gender(df):
+    if df.empty:
+        return _empty_figure("No data for this filter")
+
+    fig = px.box(
+        df,
+        x="gender",
+        y="duration_minute",
+        color="gender",
+        color_discrete_map=COLORS,
+        title="Trip Duration by Gender",
+    )
+    fig.update_layout(showlegend=False, xaxis_title="", yaxis_title="Minutes",
+                      **BASE_LAYOUT)
+    return fig
+
+
+
+# ===============================================================
+# Test area 
 # ===============================================================
 if __name__ == "__main__":
     df = pd.read_csv("cleaned_fordgobike.csv")

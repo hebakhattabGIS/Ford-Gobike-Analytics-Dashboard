@@ -1,2 +1,8 @@
 [theme]
-base = "light"
+base = "dark"
+[theme.sidebar]
+primarycolor = "#00FF88"
+textcolor = "#00B8D4"
+widgetBackgroundColor = "#1e293b"
+widgetBorderColor = "#5a6b84"
+skeletonBackgroundColor = "#1e293b"

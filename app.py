@@ -19,6 +19,16 @@ st.set_page_config(
     page_icon="https://img.icons8.com/?size=100&id=O6GtnaATHUol&format=png&color=12B886",
     layout="wide"
 )
+# use the same color pallete
+COLORS = {
+    "Subscriber": "#00FF88",
+    "Customer":   "#00B8D4",
+    "Male":       "#00FF88",
+    "Female":     "#7C3AED",  # Neon purple accent
+    "Young":      "#00FF88",
+    "Adult":      "#00B8D4",
+    "Senior":     "#F59E0B",  # Amber accent
+}
 
 # Keep the dashboard styling in one place.
 st.html("""
@@ -71,7 +81,7 @@ st.html("""
 }
 
 .page-eyebrow {
-    color: var(--rose-dark);
+    color: var(--cyber-dark);
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 1.2px;
@@ -89,7 +99,7 @@ st.html("""
 }
 
 .page-title .material-symbols-rounded {
-    color: var(--rose);
+    color: var(--cyber);
     font-size: 29px;
 }
 
@@ -115,7 +125,7 @@ st.html("""
 }
 
 .page-period .material-symbols-rounded {
-    color: var(--rose);
+    color: var(--cyber);
     font-size: 17px;
 }
 
@@ -130,16 +140,13 @@ st.html("""
 
 /* Professional sidebar */
 [data-testid="stSidebar"] {
-    background: linear-gradient(
-        180deg,
-        #071018 0%,
-        #0E1520 100%
-    );
+    background: var(--canvas);
     border-right: 1px solid rgba(0,255,136,0.15);
 }
 
 [data-testid="stSidebar"] > div:first-child {
     padding-top: 1.25rem;
+    
 }
 
 .sidebar-brand {
@@ -156,8 +163,8 @@ st.html("""
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--ink);
-    color: var(--rose);
+    
+    color: var(--cyber);
     box-shadow: 0 8px 18px -12px rgba(21,20,26,0.5);
 }
 
@@ -208,7 +215,7 @@ st.html("""
     margin-bottom: 8px;
     border: 1px solid var(--line);
     border-radius: 13px;
-    background: var(--paper);
+    
 }
 
 .sidebar-stat-icon {
@@ -219,12 +226,13 @@ st.html("""
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--rose-soft);
-    color: var(--rose-dark);
+    background: var(--cyber-soft);
+    color: var(--cyber-dark);
 }
 
 .sidebar-stat-icon .material-symbols-rounded {
     font-size: 18px;
+    color: var(--ink);
 }
 
 .sidebar-stat-value {
@@ -248,57 +256,83 @@ st.html("""
     padding: 11px 10px;
     border-radius: 13px;
     background: var(--ink);
-    color: white;
+    
 }
 
 .sidebar-footer > .material-symbols-rounded {
-    color: var(--rose);
+    color: var(--teal);
     font-size: 20px;
 }
 
 .sidebar-footer b {
     display: block;
+    color: var(--muted);
     font-size: 11px;
     line-height: 1.2;
 }
 
 .sidebar-footer small {
     display: block;
-    color: #B7B4BE;
+    color: var(--muted);
     font-size: 9px;
     margin-top: 3px;
 }
 
 /* Sidebar filter chips */
-div[data-baseweb="tag"] {
-    background-color: var(--ink) !important;
-    color: white !important;
+div[data-baseweb="tag"] span {
+    background-color: var(--paper) !important;
+    color: var(--cyber) !important;
     border-radius: 999px !important;
 }
-div[data-baseweb="tag"] span { color: white !important; }
+div[data-baseweb="tag"] span { color: var(--paper) !important; }
 div[data-baseweb="select"] > div:focus-within,
 div[data-baseweb="select"] > div:hover {
-    border-color: var(--rose) !important;
+    border-color: var(--cyber) !important;
 }
 
-/* Tabs: rose underline on the active tab */
+
+/* Selected filter chips */
+span[data-baseweb="tag"] {
+    background-color: var(--cyber) !important;
+    color: var(--paper) !important;
+    border-radius: 999px !important;
+}
+
+/* Force all content inside tag */
+span[data-baseweb="tag"] * {
+    background-color: transparent !important;
+    color: var(--paper) !important;
+}
+
+/* Multiselect border hover/focus */
+div[data-baseweb="select"] > div:focus-within,
+div[data-baseweb="select"] > div:hover {
+    border-color: var(--cyber) !important;
+}
+
+/* Tabs: cyber underline on the active tab */
 .stTabs [data-baseweb="tab-list"] { gap: 4px; border-bottom: 1px solid var(--line); }
 .stTabs [data-baseweb="tab"] { color: var(--muted); font-weight: 600; }
 .stTabs [aria-selected="true"] { color: var(--ink) !important; }
-.stTabs [data-baseweb="tab-highlight"] { background-color: var(--rose) !important; }
+.stTabs [data-baseweb="tab-highlight"] {
+    background-color: #00FF88 !important;
+}
 
 /* Buttons */
 .stButton button {
     border-radius: 10px;
     border: 1px solid var(--line);
+    border-color: var(--cyber);
+    color: var(--cyber-dark);
 }
 .stButton button:hover {
-    border-color: var(--rose);
-    color: var(--rose-dark);
+    border-color: var(--cyber);
+    color: var(--cyber-dark);
 }
 
 /* Generic white card, used across the app */
 .metric-card {
+    padding: 2px 10px;
     background: #111827;
     border: 1px solid rgba(0,255,136,0.15);
     box-shadow: 0 0 16px rgba(0,255,136,0.05);
@@ -306,11 +340,8 @@ div[data-baseweb="select"] > div:hover {
 
 /* The one bold move: a dark "spotlight" card for the headline stat */
 .spotlight-card {
-    background: linear-gradient(
-        135deg,
-        #071018 0%,
-        #0E1A24 100%
-    );
+    padding: 2px 10px;
+    background: linear-gradient(135deg, #071018 0%, #0E1A24 100% );
     border: 1px solid rgba(0,255,136,0.25);
 }
 .spotlight-card .spotlight-value { color: #00FF88; }
@@ -321,14 +352,15 @@ div[data-baseweb="select"] > div:hover {
     display: inline-block;
     padding: 2px 10px;
     border-radius: 999px;
-    background-color: var(--rose-soft);
-    color: var(--rose-dark);
+    background-color: var(--cyber-soft);
+    color: var(--cyber-dark);
     font-size: 12px;
     font-weight: 700;
 }
 .spotlight-card .delta-pill {
+    padding: 2px 10px;
     background-color: rgba(239,70,118,0.16);
-    color: var(--rose);
+    color: var(--cyber);
 }
 
 /* Quick-facts row */
@@ -348,8 +380,8 @@ div[data-baseweb="select"] > div:hover {
     width: 36px;
     height: 36px;
     border-radius: 10px;
-    background-color: var(--rose-soft);
-    color: var(--rose-dark);
+    background-color: var(--cyber-soft);
+    color: var(--cyber-dark);
     flex-shrink: 0;
 }
 .fact-text { font-size: 13px; color: var(--ink); }
@@ -358,18 +390,19 @@ div[data-baseweb="select"] > div:hover {
 
 /* Hero KPI card: bigger, wider, holds the headline number */
 .hero-card {
-    background: linear-gradient(
-        135deg,
-        #0E1520 0%,
-        #162132 100%
-    );
+    padding: 2px 10px;
+    background: linear-gradient(135deg, #0E1520 0%, #162132 100% );
     border: 1px solid rgba(0,255,136,0.2);
 }
 .hero-label { font-size: 13px; color: var(--muted); font-weight: 600; }
 .hero-value { font-size: 34px; font-weight: 800; color: var(--ink); line-height: 1.15; margin-top: 4px; }
 
-/* Rose-bordered card, the "highlighted" card among the plain white ones */
-.metric-card--highlight { border: 2px solid var(--rose); }
+/* cyber-bordered card, the "highlighted" card among the plain white ones */
+.metric-card--highlight {
+    padding: 2px 10px;
+    border: 2px solid #00FF88;
+    box-shadow: 0 0 18px rgba(0,255,136,0.15);
+}
 
 /* Compact pill-shaped chip for the quick-fact strip */
 .stat-chip {
@@ -399,9 +432,9 @@ div[data-baseweb="select"] > div:hover {
 /* Breakdown rows with an inline mini progress bar (age-group list) */
 .list-row { margin-bottom: 12px; }
 .list-row .list-row-top { display: flex; justify-content: space-between; font-size: 13px; color: var(--ink); margin-bottom: 4px; }
-.list-row .list-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; }
-.mini-bar { background-color: var(--rose-soft); border-radius: 999px; height: 6px; overflow: hidden; }
-.mini-bar-fill { background-color: var(--rose); height: 100%; border-radius: 999px; }
+.list-row .list-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; color: #00FF88}
+.mini-bar { background-color: var(--green); border-radius: 999px; height: 6px; overflow: hidden; }
+.mini-bar-fill { height: 100%; width: 75%; background: linear-gradient(90deg, #00FF88, #00B8D4); }
 
 /* Ranked leaderboard rows (trip-length leaderboard) */
 .rank-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); }
@@ -409,10 +442,10 @@ div[data-baseweb="select"] > div:hover {
 .rank-badge {
     display: flex; align-items: center; justify-content: center;
     width: 22px; height: 22px; border-radius: 50%;
-    background-color: var(--rose-soft); color: var(--rose-dark);
+    background-color: var(--cyber-soft); color: white;;
     font-size: 11px; font-weight: 800; flex-shrink: 0;
 }
-.rank-row.is-first .rank-badge { background-color: var(--rose); color: white; }
+.rank-row.is-first .rank-badge { background-color: var(--cyber); color: white; }
 .rank-name { font-size: 13px; color: var(--ink); font-weight: 600; flex-grow: 1; }
 .rank-value { font-size: 12px; color: var(--muted); font-weight: 700; }
 </style>
@@ -524,7 +557,7 @@ def render_sidebar(user_types, genders, age_groups, total_records):
         )
 
         st.markdown('<div class="sidebar-section-title">FILTERS</div>', unsafe_allow_html=True)
-
+        
         selected_user_types = st.multiselect(
             "User type", user_types, default=user_types, key="ut_filter"
         )
@@ -535,7 +568,7 @@ def render_sidebar(user_types, genders, age_groups, total_records):
             "Age group", age_groups, default=age_groups, key="ag_filter"
         )
 
-        if st.button("↻  Reset all filters", use_container_width=True):
+        if st.button("↻  Reset all filters", width='stretch'):
             st.session_state.clear()
             st.rerun()
 
@@ -598,7 +631,7 @@ def render_sidebar(user_types, genders, age_groups, total_records):
 def _stat_chip(icon, label, value):
     st.markdown(
         f"""<div class="stat-chip">
-            <div class="chip-avatar"><span class="material-symbols-rounded">{icon}</span></div>
+            <div class="chip-avatar"><span class="material-symbols-rounded" style="color:#00B8D4;">{icon}</span></div>
             <div>
                 <div class="chip-text">{label}</div>
                 <div class="chip-value">{value}</div>
@@ -649,11 +682,17 @@ def render_overview_section(data, total_raw_count):
 
     with hero_col:
         st.markdown(
-            f"""<div class="hero-card">
+            f"""
+            <div class="hero-card">
                 <div class="hero-label">Total trips</div>
                 <div class="hero-value">{total_trips:,}</div>
-                <div style="margin-top:10px;"><span class="delta-pill">{filtered_percentage:.0f}% of all trips</span></div>
-            </div>""",
+                <div style="margin-top:10px;">
+                    <span class="delta-pill" style="color: #86828F;">
+                        {filtered_percentage:.0f}% of all trips
+                    </span>
+                </div>
+            </div>
+            """,
             unsafe_allow_html=True
         )
     with c2:
@@ -663,7 +702,8 @@ def render_overview_section(data, total_raw_count):
                     <span class="material-symbols-rounded" style="color:#00FF88;">schedule</span>
                     <span style="color: #86828F; font-size: 13px; font-weight: 600;">Avg. duration</span>
                 </div>
-                <div style="font-size: 22px; font-weight: 700; color: #15141A;">{average_duration:.1f} min</div>
+                <div style="font-size: 22px; font-weight: 700; color: #FFFFFF;">{average_duration:.1f} min</div>
+                <div style="margin-top:6px;"><span class="delta-pill" style="color: #86828F;">   </span></div>
             </div>""",
             unsafe_allow_html=True
         )
@@ -674,30 +714,32 @@ def render_overview_section(data, total_raw_count):
                     <span class="material-symbols-rounded" style="color:#00FF88;">pedal_bike</span>
                     <span style="color: #86828F; font-size: 13px; font-weight: 600;">Distinct bikes</span>
                 </div>
-                <div style="font-size: 22px; font-weight: 700; color: #15141A;">{distinct_bikes:,}</div>
+                <div style="font-size: 22px; font-weight: 700; color: #FFFFFF;">{distinct_bikes:,}</div>
+                <div style="margin-top:6px;"><span class="delta-pill" style="color: #86828F;">   </span></div>
             </div>""",
             unsafe_allow_html=True
         )
     with c4:
         st.markdown(
-            f"""<div class="spotlight-card">
+            f"""<div class="metric-card">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-                    <span class="material-symbols-rounded">groups</span>
-                    <span style="font-size: 13px; font-weight: 600;" class="spotlight-label">Subscriber share</span>
+                    <span class="material-symbols-rounded" style="color:#00FF88;">groups</span>
+                    <span style="color: #86828F; font-size: 13px; font-weight: 600;" class="spotlight-label">Subscriber share</span>
                 </div>
-                <div style="font-size: 22px; font-weight: 700;">{subscriber_share:.0f}%</div>
+                <div style="font-size: 22px; font-weight: 700; color: #FFFFFF;">{subscriber_share:.0f}%</div>
+                <div style="margin-top:6px;"><span class="delta-pill" style="color: #86828F;">   </span></div>
             </div>""",
             unsafe_allow_html=True
         )
     with c5:
         st.markdown(
-            f"""<div class="metric-card metric-card--highlight">
+            f"""<div class="metric-card">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
                     <span class="material-symbols-rounded" style="color:#00FF88;">groups</span>
                     <span style="color: #86828F; font-size: 13px; font-weight: 600;">Top age group</span>
                 </div>
-                <div style="font-size: 22px; font-weight: 700; color: #15141A;">{top_age_group}</div>
-                <div style="margin-top:6px;"><span class="delta-pill">{top_age_group_share:.0f}% of trips</span></div>
+                <div style="font-size: 22px; font-weight: 700; color: #FFFFFF;">{top_age_group}</div>
+                <div style="margin-top:6px;"><span class="delta-pill" style="color: #86828F;">{top_age_group_share:.0f}% of trips</span></div>
             </div>""",
             unsafe_allow_html=True
         )
@@ -722,11 +764,11 @@ def render_overview_section(data, total_raw_count):
 
     st.markdown("<div style='height:22px'></div>", unsafe_allow_html=True)
     # Arrange the three summary widgets side by side.
-    col_a, col_b, col_c = st.columns(3)
-
+    #col_a, col_b, col_c = st.columns(3)
+    col_a, col_b = st.columns(2)
     with col_a:
         age_counts = data["age_group"].value_counts()
-        palette = ["#00FF88", "#2A2830", "#F2A6BE"]
+        palette = ["#00FF88", "#28FFCD", "#99D9EA"]
         rows_html = "".join(
             _list_row_html(palette[i % len(palette)], str(label), int(count), count / total_trips * 100)
             for i, (label, count) in enumerate(age_counts.items())
@@ -740,26 +782,8 @@ def render_overview_section(data, total_raw_count):
         )
 
     with col_b:
-        with st.container(border=True):
-            st.markdown(
-                '<div class="widget-title"><span class="material-symbols-rounded" style="color:#00FF88;">pie_chart</span>User type share</div>',
-                unsafe_allow_html=True
-            )
-            user_type_counts = data["user_type"].value_counts().reset_index()
-            user_type_counts.columns = ["user_type", "trip_count"]
-            fig_donut = px.pie(
-                user_type_counts, names="user_type", values="trip_count", hole=0.62,
-                color_discrete_sequence=TWO_TONE_COLORS
-            )
-            fig_donut.update_traces(textposition="outside", textinfo="percent+label")
-            fig_donut.update_layout(
-                margin=dict(t=10, b=10, l=0, r=0), showlegend=False, height=250,
-                font=dict(color="#15141A"), plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)",
-            )
-            st.plotly_chart(fig_donut, use_container_width=True)
-
-    with col_c:
         bucket_labels = ["Short (<10 min)", "Medium (10-20 min)", "Long (20+ min)"]
+        palette = ["#00FF88", "#28FFCD", "#99D9EA"]
         bins = pd.cut(
             data["duration_minute"],
             bins=[-0.01, 10, 20, max(data["duration_minute"].max(), 20.01)],
@@ -779,29 +803,73 @@ def render_overview_section(data, total_raw_count):
         )
 
     st.markdown("<div style='height:20px'></div>", unsafe_allow_html=True)
-    # Finish the overview with one wider trend chart.
-    with st.container(border=True):
-        st.markdown(
-            '<div class="widget-title"><span class="material-symbols-rounded" style="color:#00FF88;">show_chart</span>Trip duration trend</div>',
-            unsafe_allow_html=True
-        )
-        line_data = data.groupby([data["duration_minute"].round(0), "user_type"], as_index=False).size()
-        line_data.columns = ["duration_minute", "user_type", "size"]
-        fig_line = px.line(
-            line_data, x="duration_minute", y="size", color="user_type", line_shape="spline",
-            labels={"duration_minute": "Duration (Minutes)", "size": "Trip Count", "user_type": "User Type"},
-            color_discrete_sequence=TWO_TONE_COLORS
-        )
-        fig_line.update_traces(line=dict(width=3), mode="lines+markers", marker=dict(size=4))
-        fig_line.update_layout(
-            hovermode="x unified", margin=dict(t=10, b=0, l=0, r=0), height=320,
-            font=dict(color="#15141A"), plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)",
-            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, title=None),
-        )
-        fig_line.update_xaxes(gridcolor="rgba(21,20,26,0.06)")
-        fig_line.update_yaxes(gridcolor="rgba(21,20,26,0.06)")
-        st.plotly_chart(fig_line, use_container_width=True)
+    col_c, col_d = st.columns(2)
+    with col_c:
+    # two charts side by side #Finish the overview with one wider trend chart.
+        with st.container(border=True):
+            st.markdown(
+                '<div class="widget-title"><span class="material-symbols-rounded" style="color:#00FF88;">pie_chart</span>User type share</div>',
+                unsafe_allow_html=True
+            )
+            user_type_counts = data["user_type"].value_counts().reset_index()
+            user_type_counts.columns = ["user_type", "trip_count"]
+            
+            fig_donut = px.pie(
+                user_type_counts, names="user_type", values="trip_count", hole=0.62, color="user_type", color_discrete_map=COLORS
+            )
+            fig_donut.update_traces(textposition="outside", textinfo="percent+label")
+            fig_donut.update_layout(
+                margin=dict(t=10, b=10, l=0, r=0), showlegend=True, height=320,
+                font=dict(color="#E2E8F0"), plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="#0A0F14",
+            )
+            st.plotly_chart(fig_donut, width='stretch')
+ 
+    with col_d:
+       with st.container(border=True):
+            st.markdown(
+                '<div class="widget-title"><span class="material-symbols-rounded" style="color:#00FF88;">show_chart</span>Ride duration Profile</div>',
+                unsafe_allow_html=True
+            )
+            bar_data = data.groupby("user_type")["duration_minute"].mean().reset_index()
+            bar_data.columns = ["user_type", "duration_minute"]
+            overall_avg = data["duration_minute"].mean()
+            #st.dataframe(bar_data)
+            fig_hbar = px.bar(
+                bar_data, x="duration_minute", y="user_type", color="user_type", 
+                labels={"duration_minute": "Average Duration (Minutes)", "user_type": "User Type"},
+                color_discrete_map=COLORS, orientation= "h", 
+            )
+            fig_hbar.add_vline(x=overall_avg,
+                line_dash="dash",
+                line_color="#00FF88",
+                opacity=0.6
+            )
+            fig_hbar.update_traces(texttemplate="%{x:.1f} min", textposition="inside")
+            fig_hbar.update_layout(
+                hovermode="x unified", margin=dict(t=10, b=0, l=0, r=0), height=320,
+                font=dict(color="#E2E8F0"), plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="#0A0F14",
+                legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, title=None),
+                showlegend=False,
+            )
+            max_val = bar_data["duration_minute"].max()
+            fig_hbar.update_xaxes(range=[0, max_val * 1.15])
+            fig_hbar.update_xaxes(showgrid=True,
+                                gridcolor="rgba(0,255,136,0.25)",
+                                zeroline=False
+            )
+            fig_hbar.update_yaxes(gridcolor="rgba(0,255,136,0.15)")
+            fig_hbar.update_yaxes(title=None)
+            diff = (
+                bar_data["duration_minute"].max()
+                - bar_data["duration_minute"].min()
+            )
 
+            pct = diff / bar_data["duration_minute"].min() * 100
+            st.plotly_chart(fig_hbar, width='stretch')
+            st.markdown(
+                        f"""<div class="page-subtitle" align = "center">Customers ride {pct:.1f}% longer on average</div>""",
+                        unsafe_allow_html=True
+                    )
 # Show the trip-duration analysis over time.
 def render_time_section(data):
     if data.empty:
@@ -822,23 +890,23 @@ def render_time_section(data):
     fig.update_traces(marker_cornerradius=4, opacity=0.9)
     fig.update_layout(
         plot_bgcolor="rgba(0,0,0,0)",
-        paper_bgcolor="rgba(0,0,0,0)",
-        font=dict(color="#15141A"),
+        paper_bgcolor="#0A0F14",
+        font=dict(color="#E2E8F0"),
         margin=dict(t=30, b=0, l=0, r=0),
         height=380,
         hovermode="x unified"
     )
-    fig.update_xaxes(gridcolor="rgba(21,20,26,0.06)")
-    fig.update_yaxes(gridcolor="rgba(21,20,26,0.06)")
-    st.plotly_chart(fig, use_container_width=True)
+    fig.update_xaxes(gridcolor="rgba(0,255,136,0.15)")
+    fig.update_yaxes(gridcolor="rgba(0,255,136,0.15)")
+    st.plotly_chart(fig, width='stretch')
 
     st.markdown("---")
     st.subheader("Duration & Time Insights")
     col1, col2 = st.columns(2)
     with col1:
-        st.plotly_chart(youssef_charts.fig_duration_histogram(data), use_container_width=True)
+        st.plotly_chart(youssef_charts.fig_duration_by_gender(data), width='stretch')#needs to be replaced
     with col2:
-        st.plotly_chart(youssef_charts.fig_duration_by_user_type(data), use_container_width=True)
+        st.plotly_chart(youssef_charts.fig_duration_by_user_type(data), width='stretch')
 
 # Show the main user and demographic analysis.
 def render_user_section(data):
@@ -870,18 +938,18 @@ def render_user_section(data):
     )
 
     left, right = st.columns(2)
-    left.plotly_chart(age_gender_chart, use_container_width=True)
-    right.plotly_chart(user_type_chart, use_container_width=True)
+    left.plotly_chart(age_gender_chart, width='stretch')
+    right.plotly_chart(user_type_chart, width='stretch')
 
     st.markdown("---")
     st.subheader("Detailed User Demographics")
     col1, col2 = st.columns(2)
     with col1:
-        st.plotly_chart(youssef_charts.fig_user_type_donut(data), use_container_width=True)
-        st.plotly_chart(youssef_charts.fig_gender_bar(data), use_container_width=True)
+        st.plotly_chart(youssef_charts.fig_user_type_donut(data), width='stretch')
+        st.plotly_chart(youssef_charts.fig_gender_bar(data), width='stretch')
     with col2:
-        st.plotly_chart(youssef_charts.fig_age_group_bar(data), use_container_width=True)
-        st.plotly_chart(youssef_charts.fig_age_histogram(data), use_container_width=True)
+        st.plotly_chart(youssef_charts.fig_age_group_bar(data), width='stretch')
+        st.plotly_chart(youssef_charts.fig_age_histogram(data), width='stretch')
 
 # Render the station and trip-location analysis.
 def render_station_section(data):
@@ -904,7 +972,7 @@ def main():
         """
         <div class="page-header">
             <div>
-                <div class="page-eyebrow">TRANSPORTATION ANALYTICS</div>
+                <div class="page-eyebrow" style="color: #86828F;">TRANSPORTATION ANALYTICS</div>
                 <div class="page-title">
                     <span class="material-symbols-rounded">directions_bike</span>
                     Ford GoBike Analytics
