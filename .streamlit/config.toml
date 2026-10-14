@@ -1,5 +1,10 @@
 [theme]
-base = "dark"
+base="dark"
+primaryColor="#00FF88"
+backgroundColor="#0A0F14"
+secondaryBackgroundColor="#111827"
+textColor="#E2E8F0"
+font="sans serif"
 [theme.sidebar]
 primarycolor = "#00FF88"
 textcolor = "#00B8D4"

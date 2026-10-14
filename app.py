@@ -359,7 +359,7 @@ div[data-baseweb="select"] > div:hover {
 }
 .spotlight-card .delta-pill {
     padding: 2px 10px;
-    background-color: rgba(239,70,118,0.16);
+    background-color: rgba(0, 255, 136, 0.16);
     color: var(--cyber);
 }
 
@@ -813,7 +813,12 @@ def render_overview_section(data, total_raw_count):
             )
             user_type_counts = data["user_type"].value_counts().reset_index()
             user_type_counts.columns = ["user_type", "trip_count"]
-            
+            customer_pct = (
+                user_type_counts.loc[
+                    user_type_counts["user_type"] == "Customer", 
+                    "trip_count"].iloc[0]
+                      / user_type_counts["trip_count"].sum()* 100
+            )
             fig_donut = px.pie(
                 user_type_counts, names="user_type", values="trip_count", hole=0.62, color="user_type", color_discrete_map=COLORS
             )
@@ -823,7 +828,10 @@ def render_overview_section(data, total_raw_count):
                 font=dict(color="#E2E8F0"), plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="#0A0F14",
             )
             st.plotly_chart(fig_donut, width='stretch')
- 
+            st.markdown(
+                        f"""<div class="page-subtitle" align = "center">Customers account for only {customer_pct:.1f}% of all trips while Subscribers account for the remaining {100-customer_pct:.1f}%</div>""",
+                        unsafe_allow_html=True
+                    ) 
     with col_d:
        with st.container(border=True):
             st.markdown(

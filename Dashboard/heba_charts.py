@@ -22,13 +22,13 @@ BASEMAP_STYLES = {
     "Dark": "dark",
 }
 
-# --- تم تحديث الألوان لتتطابق مع الـ Palette الجديدة (Rose / Near-black) ---
-ORIGIN_COLOR = [239, 70, 118]       # Rose (بدلاً من Teal)
-DESTINATION_COLOR = [42, 40, 48]   # Near-black/Ink (بدلاً من Amber)
+# Cyber GIS colours
+ORIGIN_COLOR = [0, 255, 136]      # --cyber
+DESTINATION_COLOR = [0, 184, 212] # --teal
 
-# Line colour gradient: light rose -> dark ink
-LINE_COLOR_LIGHT = (242, 166, 190)
-LINE_COLOR_DARK = (21, 20, 26)
+# Line colour gradient: bright cyber -> dark cyber
+LINE_COLOR_LIGHT = (102, 255, 187)   # lighter cyber green
+LINE_COLOR_DARK = (0, 90, 48)        # dark cyber green
 LINE_WIDTH_PIXELS = 3  # fixed width - trip count is now carried by colour, not thickness
 CLICK_TARGET_RADIUS_METERS = 40    # size of each clickable station marker on the density map
 NEIGHBORHOOD_RADIUS_METERS = 300   # matches the hexagon bin radius - defines "same area" on click
@@ -105,14 +105,7 @@ def filter_to_area(data, area_name):
 
 
 def _as_float_positions(data, lon_col, lat_col):
-    """
-    Build an explicit [lon, lat] array column instead of relying on pydeck's
-    list-of-column-names accessor. Also forces native float (not numpy/Decimal),
-    which is what actually caused the runaway lines: PostgreSQL NUMERIC columns
-    arrive as Python Decimal, which serializes badly and gets read by deck.gl
-    as 0.0 for some rows - sending those points to (0, 0), way off the coast
-    of Africa, which is the "line going to a far distance" you saw.
-    """
+    
     lon = data[lon_col].astype(float)
     lat = data[lat_col].astype(float)
     return list(zip(lon, lat))
@@ -148,7 +141,7 @@ def render_charts(data):
         title="Top 10 start stations",
         labels={"trip_count": "Trips", "start_station": ""},
         color="trip_count",
-        color_continuous_scale=["#FDEAF0", "#EF4676"],  # تم التعديل لتتوافق مع الـ Palette
+        color_continuous_scale=["#00FF88", "#00CC6A"],  # تم التعديل لتتوافق مع الـ Palette
     )
     station_chart.update_layout(coloraxis_showscale=False, height=430)
 
@@ -165,7 +158,7 @@ def render_charts(data):
         barmode="group",
         title="Trips by gender and age group",
         labels={"trip_count": "Trips", "age_group": "Age group", "gender": "Gender"},
-        color_discrete_sequence=["#EF4676", "#2A2830"],  # تم التعديل لتتوافق مع الـ Palette
+        color_discrete_sequence=["#00CC6A", "#00B8D4"],  # تم التعديل لتتوافق مع الـ Palette
     )
     demographic_chart.update_layout(height=430)
 
@@ -216,16 +209,16 @@ def render_density_map(data, area_name, basemap="Streets"):
         pickable=True,
         auto_highligh=True,
         color_range=[
-            [253, 234, 239],  # تدرجات متناسقة مع لون Rose
-            [248, 178, 201],
-            [243, 122, 162],
-            [239, 70, 118],
-            [214, 51, 95],
-            [180, 36, 78],
-            [146, 21, 61],
-            [112, 10, 45],
-            [78, 0, 30],      # داكن جداً
-        ],
+            [232, 255, 240],  # very light mint
+            [198, 245, 214],
+            [164, 235, 188],
+            [130, 225, 162],
+            [96, 215, 136],
+            [62, 190, 110],
+            [36, 150, 85],
+            [18, 110, 60],
+            [0, 70, 35]       # dark green
+        ]
     )
 
     st.pydeck_chart(
@@ -440,7 +433,7 @@ def render_top_stations_chart(data):
         orientation="h",
         title=title,
         labels={"trip_count": "Trips", group_col: ""},
-        color_discrete_sequence=["#EF4676"],  # تم التعديل لتتوافق مع الـ Palette
+        color_discrete_sequence=["#00B8D4"],  # تم التعديل لتتوافق مع الـ Palette
     )
     chart.update_layout(showlegend=False, height=430)
     st.plotly_chart(chart, use_container_width=True)
