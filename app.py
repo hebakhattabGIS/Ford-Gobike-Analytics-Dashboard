@@ -12,6 +12,24 @@ try:
     from Dashboard import heba_charts
 except ImportError:
     heba_charts = None
+import streamlit as st
+
+st.markdown("""
+    <style>
+        /* Remove top padding */
+        .block-container {
+            padding-top: 2rem;
+        }
+    </style>
+""", unsafe_allow_html=True)
+st.markdown("""
+    <style>
+        section[data-testid="stSidebar"] .block-container {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 # Set the basic page settings and dashboard layout.
 st.set_page_config(
@@ -610,20 +628,7 @@ def render_sidebar(user_types, genders, age_groups, total_records):
             """,
             unsafe_allow_html=True
         )
-
-        st.markdown(
-            """
-            <div class="sidebar-footer">
-                <span class="material-symbols-rounded">insights</span>
-                <div>
-                    <b>Analytics workspace</b>
-                    <small>Interactive trip analysis</small>
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
+        
     return tuple(selected_user_types), tuple(selected_genders), tuple(selected_age_groups)
 
 
